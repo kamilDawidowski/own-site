@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
-import Typography from '@mui/material/Typography';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import WorkHistory from "./workHistory/WorkHistory";
 import image from "../../../assects/img/work/Goldenore_logo_Ciemne.png";
+import axios from "axios";
+import ListFeature from "../listFeature/ListFeature";
 
 const steps = ['WAT 2018-2022', 'ACCENTURE 2021', 'GOLDENORE 2021-OBECNIE'];
 const stepsObject = [{
@@ -29,31 +32,39 @@ function MyDescription(props) {
 
     const [activeStep, setActiveStep] = React.useState(2);
     const [completed, setCompleted] = React.useState({});
+    const [workHistory,setWorkHistory]=useState([]);
+    const [readyFlag,setReadyFlag]=useState(false);
 
     useEffect(()=>{
+        getWorkHistory().then(setReadyFlag(true))
+        setReadyFlag(true)
+        console.log(workHistory)
+
+    },[])
+
+    const getWorkHistory = async ()=>
+    {
+        try{
+            setReadyFlag(false)
+            const res = await axios.get("http://localhost:8080/work/getElement")
+            // setWorkHistory(res.data)
+            console.log(res.data)
+            let tab=res.data
+            setWorkHistory(tab)
+            setReadyFlag(true)
+            toast.success("Great!")
+
+        }catch (e) {
+            console.log("ERROR-getWorkHistory")
+            toast.error("ERROR-getWorkHistory")
+        }
 
 
-    })
 
-    // const getWorkHistory = async ()=>
-    // {
-    //     const res = await axios.get(Services.getAdres() + "api/all/employee", {
-    //         params: {idDpd: idDpdAdd},
-    //         headers: {
-    //             'Authorization': `Bearer ${access_token}`
-    //         }
-    //     })
-    //
-    // }
-
-
-
-
-
-
+    }
 
     const totalSteps = () => {
-        return stepsObject.length;
+        return workHistory.length;
     };
 
     const completedSteps = () => {
@@ -100,22 +111,27 @@ function MyDescription(props) {
 
     return (
         <div className='container-fluid'>
-
+            <ToastContainer />
             <Box sx={{ width: '100%' }}>
-                <Stepper nonLinear activeStep={activeStep}>
-                    {stepsObject.map((label, index) => (
-                        <Step key={label.name} completed={completed[index]}>
+                {workHistory?                <Stepper nonLinear activeStep={activeStep}>
+                    {workHistory.map((label, index) => (
+                        <Step key={label.title} completed={completed[index]}>
                             <StepButton color="inherit" onClick={handleStep(index)}>
-                                {label.name}
+                                {label.title}
                             </StepButton>
                         </Step>
                     ))}
-                </Stepper>
+                </Stepper> :<p>none</p>}
+
             </Box>
             <div className='text-center'>
-                <WorkHistory work={stepsObject[activeStep]}/>
-
+                {workHistory.length!=0? <WorkHistory work={workHistory[activeStep]}/>:<p>None</p>}
                 {/*<Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1} {stepsObject[activeStep].description}</Typography>*/}
+            </div>
+            <div className='mt-4 ms-3'>
+
+
+                <ListFeature/>
             </div>
 
 

@@ -8,15 +8,18 @@ import MyDescription from "./decription/MyDescription";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import MyPersonalDescription from "./myPersonalDescription/MyPersonalDescription";
 function Content(props) {
 
     return (
         <div>
             <Grid container spacing={0}>
-                <Grid  xs="auto">
-fefrrettttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+                <Grid  xs="auto" className='mt-2'>
+                    <MyPersonalDescription/>
+
+
                 </Grid>
-                <Grid  xs={8}>
+                <Grid  xs={8} className='mt-2'>
                     <MyDescription/>
                 </Grid>
 
