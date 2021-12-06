@@ -125,8 +125,9 @@ function MyDescription(props) {
 
             </Box>
             <div className='text-center'>
+
                 {workHistory.length!=0? <WorkHistory work={workHistory[activeStep]}/>:<p>None</p>}
-                {/*<Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1} {stepsObject[activeStep].description}</Typography>*/}
+
             </div>
             <div className='mt-4 ms-3'>
 

@@ -12,6 +12,8 @@ import javaImg from "../../../../assects/img/work/java_original_wordmark_logo_ic
 import kafkaImg from "../../../../assects/img/work/apache_kafka_icon_138937.svg"
 import azureImg from "../../../../assects/img/work/microsoft_azure_logo_icon_170956.svg"
 import fireBaseImg from "../../../../assects/img/work/file_type_firebase_icon_130606.svg"
+import MapIcon from '@mui/icons-material/Map';
+import PersonIcon from '@mui/icons-material/Person';
 function WorkHistory(props) {
 
     const [technology,setTechnology]=useState([])
@@ -52,7 +54,7 @@ function WorkHistory(props) {
 
             </Divider>
 
-            {props.work.worksActivity.map((label, index) => (
+            {props.work.workActivityList.map((label, index) => (
                 <Accordion>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -60,16 +62,23 @@ function WorkHistory(props) {
                         id="panel1a-header"
                     >
                         <Typography>{label.title}</Typography>
+
+
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
                             {label.description}
                         </Typography>
                         {label.technology.map((label,index)=>(
-                            setChip(label)
-
-
+                            setChip(label.name)
                         ))}
+                        <Typography>
+                           Role : <Chip label={label.role}  variant="outlined" className='m-2'  icon={<PersonIcon />}  />
+                        </Typography>
+                        <Typography>
+                            Localization : <Chip label={props.work.address}  variant="outlined" className='m-2'  icon={<MapIcon />}  />
+                        </Typography>
+
 
 
 
