@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppBar, Box, IconButton, Toolbar, Typography} from "@mui/material";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import PersonIcon from '@mui/icons-material/Person';
 import { styled, useTheme } from '@mui/material/styles';
 // import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -17,6 +17,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 // import IconButton from '@mui/material/IconButton';
 // import MenuIcon from '@mui/icons-material/Menu';
+import FaceIcon from '@mui/icons-material/Face';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -26,7 +27,17 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Content from "./Content";
 import CardMedia from "@mui/material/CardMedia";
-
+import TimelineIcon from '@mui/icons-material/Timeline';
+import ArticleIcon from '@mui/icons-material/Article';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    NavLink,
+    useParams
+} from "react-router-dom";
+import TimelineCreator from "../timelineCreator/TimelineCreator";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -106,6 +117,7 @@ function MainContent(props) {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const[linkState,setLinkState]=useState(1);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -115,10 +127,31 @@ function MainContent(props) {
         setOpen(false);
     };
 
+    const changeStateLink=()=>{
+        setLinkState(2)
+
+
+    }
+
+    useEffect(()=>{
+
+        if(window.location.pathname==='/addTimeLine')
+        {
+            console.log("Jestem tu")
+            setLinkState(2)
+        }
+        else{
+
+        }
+
+
+    },[])
+
 
 
 
     return (
+        <Router>
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar  position="fixed" open={open} >
@@ -148,14 +181,32 @@ function MainContent(props) {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <Link to="/" onClick={()=>setLinkState(1) } style={{ textDecoration: 'none' }} className='text-black' >
+                    <ListItem button  key='myAccountKey' selected={linkState===1?true:false} >
+                        <ListItemIcon>
+                            <AccountBoxIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={"My Profil"} />
+                    </ListItem>
+                    </Link>
+                </List>
+                <List>
+                    <Link to="/addTimeLine" onClick={()=>setLinkState(2) } style={{ textDecoration: 'none' }} className='text-black' >
+                    <ListItem button key={"myTimeLineKey"} selected={linkState===2?true:false} >
+                        <ListItemIcon>
+                            <TimelineIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={"Timeline"} />
+                    </ListItem>
+                    </Link>
+                </List>
+                <List>
+                    <ListItem button key={"myArticleKey"}>
+                        <ListItemIcon>
+                           <ArticleIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={"Add Article"} />
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
@@ -172,11 +223,25 @@ function MainContent(props) {
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
 
-                <Content/>
+
+
+
+                    <Switch>
+                        <Route exact  path="/" component={Content}/>
+                        <Route exact  path="/addTimeLine" component={TimelineCreator}/>
+
+                    </Switch>
+
+
+
+
+
+
 
 
             </Box>
         </Box>
+</Router>
 
     );
 }
