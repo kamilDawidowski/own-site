@@ -20,3 +20,30 @@ code {
 {
   max-width: 400px!important;
 }
+.data-picker
+{
+ border-color:#101050;
+  font-size: 16px;
+  padding: 15px 16px;
+  border-radius: 4px;
+}
+.node-header
+{
+    text-align: center!important;
+}
+.node-border{
+    border-radius: 4px;
+    border:4px #101050 solid;
+}
+.activity-university{
+    border-color: #e78808 !important;
+}
+.activity-ownBusiness{
+    border-color: #ee0cb7 !important;
+}
+.activity-freelancer{
+    border-color: #0303de !important;
+}
+.activity-company{
+    border-color: #2ce878 !important;
+}

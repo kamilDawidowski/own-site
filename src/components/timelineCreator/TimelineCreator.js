@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import {Divider, Typography} from "@mui/material";
 import Timeline from "../mainContent/timeline/Timeline";
 import TimelineModel from "./TimelineModel";
+import TimelineForm from "./TimelineForm";
 
 function TimelineCreator(props) {
 
@@ -14,17 +15,18 @@ function TimelineCreator(props) {
                 Timestamp Creator
             </Typography>
             <Divider className='mt-2 mb-4'/>
+            <TimelineForm/>
+            {/*<Grid container spacing={2}>*/}
+            {/*    <Grid item xs={5}>*/}
+            {/*       <TimelineForm/>*/}
+            {/*    </Grid>*/}
+            {/*    <Grid item xs={7}>*/}
+            {/*        <TimelineModel/>*/}
+            {/*    </Grid>*/}
 
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                   fdsf
-                </Grid>
-                <Grid item xs={8}>
-                    <TimelineModel/>
-                </Grid>
-
-            </Grid>
-            <Timeline/>
+            {/*</Grid>*/}
+            <TimelineModel/>
+            {/*<Timeline/>*/}
 
         </div>
     );
