@@ -13,14 +13,23 @@ import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Activity from "./form/Activity";
+import DataActivity from "./form/DataActivity";
+import ActivityTask from "./form/ActivityTask";
 
-const steps = ['Select activity', 'Create an ad group', 'Create an ad'];
+const steps = ['Select activity', 'Select date', 'Create an ad'];
 function TimelineForm(props) {
     const [startDate, setStartDate] = useState(new Date("2019/02/08"));
     const [endDate, setEndDate] = useState(new Date());
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
 
+
+    const [activity,setActivity]=useState(null);
+    const [activityName,setActivityName]=useState("");
+    const [activityRole,setActivityRole]=useState("");
+    const [dataActivity, setDataActivity] = useState({
+        range: undefined,
+    });
     const totalSteps = () => {
         return steps.length;
     };
@@ -67,6 +76,23 @@ function TimelineForm(props) {
         setCompleted({});
     };
 
+    const showSelectedForm=(index)=>{
+        switch(index)
+        {
+            case 0:
+                return <Activity beginState={activity} setBeginState={setActivity} activityName={activityName} setActivityName={setActivityName} activityRole={activityRole} setActivityRole={setActivityRole}/>
+            case 1:
+               return <DataActivity beginState={dataActivity} setBeginState={setDataActivity}/>
+            case 2:
+                return <ActivityTask/>
+            default:
+                break;
+
+
+        }
+
+    }
+
     return (
         <div className='text-center'>
             <div className='node-border'>
@@ -94,7 +120,16 @@ function TimelineForm(props) {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <Activity/>
+
+
+
+                                {showSelectedForm(activeStep)}
+
+
+
+
+
+
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Button
                                         color="inherit"

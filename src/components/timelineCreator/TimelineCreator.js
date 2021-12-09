@@ -11,7 +11,6 @@ function TimelineCreator(props) {
     return (
         <div>
             <Typography className='text-center'>
-
                 Timestamp Creator
             </Typography>
             <Divider className='mt-2 mb-4'/>
