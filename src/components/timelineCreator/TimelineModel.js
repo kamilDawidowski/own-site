@@ -5,30 +5,32 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TimelineElementCreator from "./TimelineElementCreator";
 function TimelineModel(props) {
-    const [nodes,setNodes]=useState([1,2,3,5,6,6])
+    const [nodes,setNodes]=useState([])
 
-    const nodeInformation=
-        {
-            icon:"",
-            companyName:"",
-            role:"",
-            date:"",
 
-        }
 
-        useEffect(()=>{
-            // TODO Pobrać wszytkie node
-            console.log("Create Timeline")
-            let a=        {
-                icon:"name",
-                companyName:"Goldenore",
-                role:"Developer",
-                date:"2018-2020",
 
-            }
-            setNodes([a])
+    useEffect(()=>{
+//TODO Sortowanie po dacie
+        setNodes(props.node)
 
-        },[])
+    },[props.node])
+
+
+
+        // useEffect(()=>{
+        //     // TODO Pobrać wszytkie node
+        //     console.log("Create Timeline")
+        //     let a=        {
+        //         icon:"name",
+        //         companyName:"Goldenore",
+        //         role:"Developer",
+        //         date:"2018-2020",
+        //
+        //     }
+        //     setNodes([a])
+        //
+        // },[])
 
 
 

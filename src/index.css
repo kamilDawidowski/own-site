@@ -16,6 +16,13 @@ code {
 {
   background-color: #101050 !important;
 }
+.task-list
+{
+    background-color: #101050!important;
+    border-radius: 4px!important;
+    margin: 3px!important;
+
+}
 .img-personal
 {
   max-width: 400px!important;
@@ -46,4 +53,10 @@ code {
 }
 .activity-company{
     border-color: #2ce878 !important;
+
+}
+.multi-text
+{
+    width: 400px;
+
 }

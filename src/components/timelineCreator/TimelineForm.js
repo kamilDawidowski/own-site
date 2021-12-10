@@ -14,9 +14,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Activity from "./form/Activity";
 import DataActivity from "./form/DataActivity";
-import ActivityTask from "./form/ActivityTask";
+import AddActivityTask from "./form/activityTask/AddActivityTask";
+import ActivityTask from "./form/activityTask/ActivityTask";
 
-const steps = ['Select activity', 'Select date', 'Create an ad'];
+const steps = ['Select activity', 'Select date', 'Create your achievement'];
+
 function TimelineForm(props) {
     const [startDate, setStartDate] = useState(new Date("2019/02/08"));
     const [endDate, setEndDate] = useState(new Date());
@@ -24,12 +26,15 @@ function TimelineForm(props) {
     const [completed, setCompleted] = React.useState({});
 
 
-    const [activity,setActivity]=useState(null);
-    const [activityName,setActivityName]=useState("");
-    const [activityRole,setActivityRole]=useState("");
+    const [activity, setActivity] = useState(null);
+    const [activityName, setActivityName] = useState("");
+    const [activityRole, setActivityRole] = useState("");
     const [dataActivity, setDataActivity] = useState({
         range: undefined,
     });
+    const [activityTask, setActivityTask] = useState([]);
+
+
     const totalSteps = () => {
         return steps.length;
     };
@@ -43,6 +48,9 @@ function TimelineForm(props) {
     };
 
     const allStepsCompleted = () => {
+        if (completedSteps() === totalSteps()) {
+
+        }
         return completedSteps() === totalSteps();
     };
 
@@ -75,16 +83,40 @@ function TimelineForm(props) {
         setActiveStep(0);
         setCompleted({});
     };
+    const createNode = () => {
 
-    const showSelectedForm=(index)=>{
-        switch(index)
-        {
+
+        props.setNode(val => val.concat({
+                name: activityName,
+                role: activityRole,
+                data: dataActivity,
+                tasks: activityTask
+            })
+        )
+        handleReset()
+        restartForm()
+
+
+    }
+    const restartForm = () => {
+        setActivityName("")
+        setActivityRole("");
+        setDataActivity({
+            range: undefined,
+        });
+        setActivityTask([]);
+    }
+
+    const showSelectedForm = (index) => {
+        switch (index) {
             case 0:
-                return <Activity beginState={activity} setBeginState={setActivity} activityName={activityName} setActivityName={setActivityName} activityRole={activityRole} setActivityRole={setActivityRole}/>
+                return <Activity beginState={activity} setBeginState={setActivity} activityName={activityName}
+                                 setActivityName={setActivityName} activityRole={activityRole}
+                                 setActivityRole={setActivityRole}/>
             case 1:
-               return <DataActivity beginState={dataActivity} setBeginState={setDataActivity}/>
+                return <DataActivity beginState={dataActivity} setBeginState={setDataActivity}/>
             case 2:
-                return <ActivityTask/>
+                return <ActivityTask beginState={activityTask} setBeginState={setActivityTask}/>
             default:
                 break;
 
@@ -96,8 +128,9 @@ function TimelineForm(props) {
     return (
         <div className='text-center'>
             <div className='node-border'>
-            <Toolbar className='header-bg text-white node-header'><EditIcon className='me-2'/>Create your timestamp </Toolbar>
-                <Box sx={{ width: '100%' }} className='mt-4'>
+                <Toolbar className='header-bg text-white node-header'><EditIcon className='me-2'/>Create your timestamp
+                </Toolbar>
+                <Box sx={{width: '100%'}} className='mt-4'>
                     <Stepper nonLinear activeStep={activeStep}>
                         {steps.map((label, index) => (
                             <Step key={label} completed={completed[index]}>
@@ -110,11 +143,12 @@ function TimelineForm(props) {
                     <div>
                         {allStepsCompleted() ? (
                             <React.Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
+                                <Typography sx={{mt: 2, mb: 1}}>
                                     All steps completed - you&apos;re finished
+                                    <Button onClick={createNode}>Create Node</Button>
                                 </Typography>
-                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                    <Box sx={{ flex: '1 1 auto' }} />
+                                <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+                                    <Box sx={{flex: '1 1 auto'}}/>
                                     <Button onClick={handleReset}>Reset</Button>
                                 </Box>
                             </React.Fragment>
@@ -122,30 +156,25 @@ function TimelineForm(props) {
                             <React.Fragment>
 
 
-
                                 {showSelectedForm(activeStep)}
 
 
-
-
-
-
-                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
                                     <Button
                                         color="inherit"
                                         disabled={activeStep === 0}
                                         onClick={handleBack}
-                                        sx={{ mr: 1 }}
+                                        sx={{mr: 1}}
                                     >
                                         Back
                                     </Button>
-                                    <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleNext} sx={{ mr: 1 }}>
+                                    <Box sx={{flex: '1 1 auto'}}/>
+                                    <Button onClick={handleNext} sx={{mr: 1}}>
                                         Next
                                     </Button>
                                     {activeStep !== steps.length &&
                                     (completed[activeStep] ? (
-                                        <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                                        <Typography variant="caption" sx={{display: 'inline-block'}}>
                                             Step {activeStep + 1} already completed
                                         </Typography>
                                     ) : (
@@ -160,45 +189,34 @@ function TimelineForm(props) {
                         )}
                     </div>
                 </Box>
-            {/*<TextField className='mt-4' id="outlined-basic" label="Company name" variant="outlined" />*/}
-            {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
-            {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
-            {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
-            {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
+                {/*<TextField className='mt-4' id="outlined-basic" label="Company name" variant="outlined" />*/}
+                {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
+                {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
+                {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
+                {/*<TextField className='mt-4' id="outlined-basic" label="Outlined" variant="outlined" />*/}
 
-            {/*    <DatePicker*/}
-            {/*        className='data-picker mt-4'*/}
-            {/*        selected={startDate}*/}
-            {/*        onChange={(date) => setStartDate(date)}*/}
-            {/*        selectsStart*/}
-            {/*        startDate={startDate}*/}
-            {/*        endDate={endDate}*/}
-            {/*        dateFormat="MM/yyyy"*/}
-            {/*        showMonthYearPicker*/}
-            {/*    />*/}
-            {/*    <DatePicker*/}
-            {/*        className='data-picker'*/}
-            {/*        selected={endDate}*/}
-            {/*        onChange={(date) => setEndDate(date)}*/}
-            {/*        selectsEnd*/}
-            {/*        startDate={startDate}*/}
-            {/*        endDate={endDate}*/}
-            {/*        dateFormat="MM/yyyy"*/}
-            {/*        showMonthYearPicker*/}
-            {/*    />*/}
+                {/*    <DatePicker*/}
+                {/*        className='data-picker mt-4'*/}
+                {/*        selected={startDate}*/}
+                {/*        onChange={(date) => setStartDate(date)}*/}
+                {/*        selectsStart*/}
+                {/*        startDate={startDate}*/}
+                {/*        endDate={endDate}*/}
+                {/*        dateFormat="MM/yyyy"*/}
+                {/*        showMonthYearPicker*/}
+                {/*    />*/}
+                {/*    <DatePicker*/}
+                {/*        className='data-picker'*/}
+                {/*        selected={endDate}*/}
+                {/*        onChange={(date) => setEndDate(date)}*/}
+                {/*        selectsEnd*/}
+                {/*        startDate={startDate}*/}
+                {/*        endDate={endDate}*/}
+                {/*        dateFormat="MM/yyyy"*/}
+                {/*        showMonthYearPicker*/}
+                {/*    />*/}
 
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
         </div>

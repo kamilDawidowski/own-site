@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@mui/material/Grid";
 import {Divider, Typography} from "@mui/material";
 import Timeline from "../mainContent/timeline/Timeline";
@@ -6,6 +6,14 @@ import TimelineModel from "./TimelineModel";
 import TimelineForm from "./TimelineForm";
 
 function TimelineCreator(props) {
+    const [node,setNode]=useState([]);
+    useEffect(()=>{
+        console.log("New node")
+        console.log(node)
+    },[node])
+    useEffect(()=>{
+    //    TODO ładowanie danych o nodach użytkownika
+    },[])
 
 
     return (
@@ -14,18 +22,10 @@ function TimelineCreator(props) {
                 Timestamp Creator
             </Typography>
             <Divider className='mt-2 mb-4'/>
-            <TimelineForm/>
-            {/*<Grid container spacing={2}>*/}
-            {/*    <Grid item xs={5}>*/}
-            {/*       <TimelineForm/>*/}
-            {/*    </Grid>*/}
-            {/*    <Grid item xs={7}>*/}
-            {/*        <TimelineModel/>*/}
-            {/*    </Grid>*/}
+            <TimelineForm node={node} setNode={setNode}/>
 
-            {/*</Grid>*/}
-            <TimelineModel/>
-            {/*<Timeline/>*/}
+            <TimelineModel node={node}/>
+
 
         </div>
     );
