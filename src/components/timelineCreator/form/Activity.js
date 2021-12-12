@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Chip, Stack, TextField} from "@mui/material";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Chip, TextField} from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import BusinessIcon from '@mui/icons-material/Business';
 import HailIcon from '@mui/icons-material/Hail';
 import HomeIcon from '@mui/icons-material/Home';
+import Alert from '@mui/material/Alert';
 
 
 function Activity(props) {
@@ -15,14 +16,7 @@ function Activity(props) {
     const [activityDescription, setActivityDescription] = useState("")
     const [activityValue, setActivityValue] = useState("")
     const [activityRole, setActivityRole] = useState("")
-
-    useEffect(() => {
-        selectActivity(props.beginState)
-        setActivityRole(props.activityRole)
-        setActivityValue(props.activityName)
-    }, [])
-
-    const selectActivity = (index) => {
+    const selectActivity = useCallback((index) => {
         setCompany(false)
         setUniversity(false)
         setOwn(false)
@@ -58,14 +52,26 @@ function Activity(props) {
         }
         props.setBeginState(index)
 
-    }
+    }, [],);
+    useEffect(() => {
+        console.log("Activity")
+        selectActivity(props.beginState)
+        setActivityRole(props.activityRole)
+        setActivityValue(props.activityName)
+    }, [])
+
+
+    useEffect(() => {
+        console.log("ERROR")
+        console.log(props.activityError)
+    }, [props.activityError])
+
 
     useEffect(() => {
         props.setActivityRole(activityRole)
         props.setActivityName(activityValue)
-        console.log("Render")
 
-    }, [activityRole, activityValue])
+    }, [activityRole, activityValue, props])
     return (
         <div className='mt-4'>
 
@@ -108,6 +114,10 @@ function Activity(props) {
                            hidden={activity != null ? false : true}
                            helperText={"Enter your position. np WebDeveloper "}/>
             </div>
+
+            <Alert variant="filled" severity="error" className='m-3' hidden={!props.activityError}>
+                You have to fill all value
+            </Alert>
 
         </div>
     );

@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Grid from "@mui/material/Grid";
 import {Divider, Typography} from "@mui/material";
 import Timeline from "../mainContent/timeline/Timeline";
-import TimelineModel from "./TimelineModel";
-import TimelineForm from "./TimelineForm";
+import TimelineModel from "./timeline/TimelineModel";
+import TimelineForm from "./timelineSteper/TimelineForm";
 
 function TimelineCreator(props) {
     const [node,setNode]=useState([]);
@@ -23,7 +23,6 @@ function TimelineCreator(props) {
             </Typography>
             <Divider className='mt-2 mb-4'/>
             <TimelineForm node={node} setNode={setNode}/>
-
             <TimelineModel node={node}/>
 
 

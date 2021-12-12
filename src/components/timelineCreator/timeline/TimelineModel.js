@@ -40,7 +40,7 @@ function TimelineModel(props) {
             <VerticalTimeline lineColor={'#101050'}>
                 {
                     nodes.map((label,index)=>{
-                        return <TimelineElementCreator role={label.role} companyName={label.companyName} date={label.date}/>
+                        return <TimelineElementCreator dane={label}/>
                     })
                 }
 

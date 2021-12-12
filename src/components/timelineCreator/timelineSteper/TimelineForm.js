@@ -1,21 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Toolbar from '@mui/material/Toolbar';
-
-import {TextField} from "@mui/material";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import EditIcon from '@mui/icons-material/Edit';
-
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Activity from "./form/Activity";
-import DataActivity from "./form/DataActivity";
-import AddActivityTask from "./form/activityTask/AddActivityTask";
-import ActivityTask from "./form/activityTask/ActivityTask";
+import Activity from "../form/Activity";
+import DataActivity from "../form/DataActivity";
+import ActivityTask from "../form/activityTask/ActivityTask";
 
 const steps = ['Select activity', 'Select date', 'Create your achievement'];
 
@@ -24,6 +19,8 @@ function TimelineForm(props) {
     const [endDate, setEndDate] = useState(new Date());
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
+    const [activityError, setActivityError] = useState(false)
+    const [dataError, setDataError] = useState(false)
 
 
     const [activity, setActivity] = useState(null);
@@ -34,7 +31,9 @@ function TimelineForm(props) {
     });
     const [activityTask, setActivityTask] = useState([]);
 
-
+    useEffect(() => {
+        console.log("TimeineForm")
+    }, [])
     const totalSteps = () => {
         return steps.length;
     };
@@ -55,13 +54,28 @@ function TimelineForm(props) {
     };
 
     const handleNext = () => {
-        const newActiveStep =
-            isLastStep() && !allStepsCompleted()
-                ? // It's the last step, but not all steps have been completed,
-                  // find the first step that has been completed
-                steps.findIndex((step, i) => !(i in completed))
-                : activeStep + 1;
-        setActiveStep(newActiveStep);
+        if ((activity !== null) && (activityName && activityRole) !== "") {
+            if(dataActivity.range===undefined&&activeStep===1)
+            {
+                setDataError(true)
+            }
+            else {
+
+                setActivityError(false)
+                const newActiveStep =
+                    isLastStep() && !allStepsCompleted()
+                        ? // It's the last step, but not all steps have been completed,
+                          // find the first step that has been completed
+                        steps.findIndex((step, i) => !(i in completed))
+                        : activeStep + 1;
+                setActiveStep(newActiveStep);
+            }
+
+        }
+        else {
+            setActivityError(true)
+        }
+
     };
 
     const handleBack = () => {
@@ -73,10 +87,25 @@ function TimelineForm(props) {
     };
 
     const handleComplete = () => {
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-        handleNext();
+        if ((activity !== null) && (activityName && activityRole) !== "") {
+            if(dataActivity.range===undefined&&activeStep===1)
+            {
+                setDataError(true)
+            }
+            else {
+
+                setActivityError(false)
+                const newCompleted = completed;
+                newCompleted[activeStep] = true;
+                setCompleted(newCompleted);
+                handleNext();
+            }
+
+         }
+        else {
+            setActivityError(true)
+        }
+
     };
 
     const handleReset = () => {
@@ -88,6 +117,7 @@ function TimelineForm(props) {
 
         props.setNode(val => val.concat({
                 name: activityName,
+                activity: activity,
                 role: activityRole,
                 data: dataActivity,
                 tasks: activityTask
@@ -101,10 +131,21 @@ function TimelineForm(props) {
     const restartForm = () => {
         setActivityName("")
         setActivityRole("");
+        setActivity("")
         setDataActivity({
             range: undefined,
         });
         setActivityTask([]);
+    }
+    const showSelectedFormValidation = (index) => {
+        // console.log()
+        // if ((activity !== null) && (activityName && activityRole) !== "") {
+        //     setActivityError(false)
+        //     // showSelectedForm(index)
+        // } else {
+        //     setActivityError(true)
+        // }
+
     }
 
     const showSelectedForm = (index) => {
@@ -112,9 +153,9 @@ function TimelineForm(props) {
             case 0:
                 return <Activity beginState={activity} setBeginState={setActivity} activityName={activityName}
                                  setActivityName={setActivityName} activityRole={activityRole}
-                                 setActivityRole={setActivityRole}/>
+                                 setActivityRole={setActivityRole} activityError={activityError}/>
             case 1:
-                return <DataActivity beginState={dataActivity} setBeginState={setDataActivity}/>
+                return <DataActivity beginState={dataActivity} setBeginState={setDataActivity} dataError={dataError}/>
             case 2:
                 return <ActivityTask beginState={activityTask} setBeginState={setActivityTask}/>
             default:
@@ -144,7 +185,7 @@ function TimelineForm(props) {
                         {allStepsCompleted() ? (
                             <React.Fragment>
                                 <Typography sx={{mt: 2, mb: 1}}>
-                                    All steps completed - you&apos;re finished
+                                    Click to create node :
                                     <Button onClick={createNode}>Create Node</Button>
                                 </Typography>
                                 <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>

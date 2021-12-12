@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {DatePicker} from 'react-rainbow-components';
 import {Chip, Stack} from "@mui/material";
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import Alert from "@mui/material/Alert";
 
 function DataActivity(props) {
     const [initialState, setInitialState] = useState({
@@ -60,6 +61,10 @@ function DataActivity(props) {
                     <Chip label={endDate!=""?endDate:"End"} color='error'/>
 
                 </div>
+
+                <Alert variant="filled" severity="error" className='m-3' hidden={!props.dataError}>
+                    You have to select data range!
+                </Alert>
 
             </Stack>
 
