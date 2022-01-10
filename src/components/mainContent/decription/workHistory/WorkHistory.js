@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Divider from "@mui/material/Divider";
 import {Avatar, Chip} from "@mui/material";
-import reactImg from "../../../../logo.svg"
 import springImg from "../../../../assects/img/work/springio-icon.svg"
 import javaImg from "../../../../assects/img/work/java_original_wordmark_logo_icon_146459.svg"
 import kafkaImg from "../../../../assects/img/work/apache_kafka_icon_138937.svg"
@@ -21,7 +20,7 @@ function WorkHistory(props) {
         switch (arg)
         {
             case "React Js":
-                return  <Chip label={arg} color="primary" variant="outlined" className='m-2' avatar={<Avatar alt="Natacha" src={reactImg} />} />
+                return  <Chip label={arg} color="primary" variant="outlined" className='m-2' avatar={<Avatar alt="Natacha" src={springImg} />} />
             case "Spring Boot":
                 return  <Chip label={arg} color="success" variant="outlined" className='m-2' avatar={<Avatar alt="Natacha" src={springImg} />} />
             case "Kafka":

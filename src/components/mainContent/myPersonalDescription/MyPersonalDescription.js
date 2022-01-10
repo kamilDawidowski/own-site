@@ -16,12 +16,12 @@ function MyPersonalDescription(props) {
         setValue(newValue);
     };
     return (
-        <div >
+        <div className='bg-primary' >
 
 
-            <div className="card" >
-                <img id="ja" src={img} className="img-thumbnail img-personal" alt="..."/>
-            </div>
+            {/*<div className="card" >*/}
+            {/*    <img id="ja" src={img} className="img-thumbnail img-personal" alt="..."/>*/}
+            {/*</div>*/}
             <Box sx={{ width: '100%' }} className='mt-4 '>
                 <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
                     <Tab icon={<PhoneIcon />} label="Contact" />

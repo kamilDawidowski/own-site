@@ -1,0 +1,29 @@
+.bg-button-leftMenu
+
+{
+    /* ff 3.6+ */
+    background:-moz-radial-gradient(circle at 3% 75%, rgba(4, 44, 84, 0.8) 0%, rgba(4, 44, 84, 1) 100%);
+
+    /* safari 5.1+,chrome 10+ */
+    background:-webkit-radial-gradient(circle at 3% 75%, rgba(4, 44, 84, 0.8) 0%, rgba(4, 44, 84, 1) 100%);
+
+    /* opera 11.10+ */
+    background:-o-radial-gradient(circle at 3% 75%, rgba(4, 44, 84, 0.8) 0%, rgba(4, 44, 84, 1) 100%);
+
+    /* ie 10+ */
+    background:-ms-radial-gradient(circle at 3% 75%, rgba(4, 44, 84, 0.8) 0%, rgba(4, 44, 84, 1) 100%);
+
+    /* global 92%+ browsers support */
+    background:radial-gradient(circle at 3% 75%, rgba(4, 44, 84, 0.8) 0%, rgba(4, 44, 84, 1) 100%);
+
+}
+.border-button-header
+{
+    border-width:2px 0px 2px 0px;
+    border-style:solid solid solid solid;
+    border-color:#ffffff #ffffff #ffffff #ffffff;
+}
+.text-button-header
+{
+    color: white;
+}

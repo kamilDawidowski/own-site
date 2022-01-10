@@ -105,7 +105,7 @@ function TimelineElementCreator(props) {
                         // <Accordion>
                         //     <AccordionSummary className='text-white task-list'
                         //                       expandIcon={<ExpandMoreIcon />}
-                        //                       aria-controls="panel1a-content"
+                        //                       aria-controls="panel1a-myProfile"
                         //                       id="panel1a-header"
                         //     >
                         //         <Typography>{label.title}</Typography>

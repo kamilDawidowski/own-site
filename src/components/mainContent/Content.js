@@ -12,24 +12,35 @@ import MyPersonalDescription from "./myPersonalDescription/MyPersonalDescription
 function Content(props) {
 
     return (
-        <div>
-            <Grid container spacing={0}>
-                <Grid  xs="auto" className='mt-2'>
-                    <MyPersonalDescription/>
-
-
-                </Grid>
-                <Grid  xs={8} className='mt-2'>
-                    <MyDescription/>
-                </Grid>
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={12} lg={6}>
+                <MyPersonalDescription/>
+            </Grid>
+            <Grid item xs={6} md={4}>
 
             </Grid>
+            <Grid item xs={6} md={4}>
 
-{/*Content*/}
-{/*            <ListFeature/>*/}
+            </Grid>
+            <Grid item xs={6} md={8}>
 
-
-        </div>
+            </Grid>
+        </Grid>
+        // <div>
+        //     <Grid container spacing={0}>
+        //         <Grid  xs="auto" className='mt-2'>
+        //             <MyPersonalDescription/>
+        //
+        //
+        //         </Grid>
+        //         <Grid  xs={8} className='mt-2'>
+        //             <MyDescription/>
+        //         </Grid>
+        //
+        //     </Grid>
+        //
+        //
+        // </div>
     );
 }
 

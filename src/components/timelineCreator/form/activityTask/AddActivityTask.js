@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Avatar, Box, Button, Chip, Stack, TextField, Typography} from "@mui/material";
-import reactImg from "../../../../logo.svg";
 import springImg from "../../../../assects/img/work/springio-icon.svg";
 import kafkaImg from "../../../../assects/img/work/apache_kafka_icon_138937.svg";
 import azureImg from "../../../../assects/img/work/microsoft_azure_logo_icon_170956.svg";
@@ -57,7 +56,7 @@ function AddActivityTask(props) {
         switch (arg)
         {
             case "React Js":
-                return  <Chip label={arg} color="primary" variant="outlined" className='m-2' avatar={<Avatar alt="Natacha" src={reactImg} />} />
+                return  <Chip label={arg} color="primary" variant="outlined" className='m-2' avatar={<Avatar alt="Natacha" src={springImg} />} />
             case "Spring Boot":
                 return  <Chip label={arg} color="success" variant="outlined" className='m-2' avatar={<Avatar alt="Natacha" src={springImg} />} />
             case "Kafka":
